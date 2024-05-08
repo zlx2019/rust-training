@@ -1,0 +1,8 @@
+[package]
+name = "week_two"
+version = "0.1.0"
+edition = "2021"
+description = "训练营第二周."
+
+
+[dependencies]
