@@ -1,3 +1,4 @@
+
 use anyhow::{Ok, Result};
 use clap::Parser;
 use rcli::{process_csv, Options, SubCommand};
@@ -11,7 +12,17 @@ fn main() -> Result<()>{
 
     // 处理终端参数.
     match opts.cmd {
-        SubCommand::Csv(csv) => process_csv(&csv.input, &csv.output)?,
+        SubCommand::Csv(cmd) => {
+            // 处理输出文件名称与类型
+            let output = if let Some(output) = cmd.output{
+                output
+            }else{
+                let in_path = &cmd.input[..cmd.input.rfind('.').unwrap()];
+                format!("{}.{}",in_path, cmd.format)
+            };
+
+            process_csv(&cmd.input, &output, cmd.format)?
+        },
     }
     Ok(())
 }

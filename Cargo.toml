@@ -2,8 +2,7 @@
 [workspace]
 members = [
     "01_rcli",
-    "02_template",
-    "03_week1",]
+    "02_week1",]
 
 
 resolver = "2"
