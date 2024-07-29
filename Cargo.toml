@@ -1,8 +1,8 @@
 # Rust 训练营工作空间.
 [workspace]
 members = [
-    "01_rcli",
-    "02_week1",]
+    "anys",
+    "week01",]
 
 
 resolver = "2"
