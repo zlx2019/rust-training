@@ -1,7 +1,7 @@
 # Rust 训练营工作空间.
 [workspace]
 members = [
-    "anys",
+    "anys", "concurrent",
     "week01",]
 
 
