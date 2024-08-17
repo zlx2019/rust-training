@@ -10,7 +10,7 @@ fn main(){
     *year = 2024;
 
     // 再次获取锁，上次还未释放
-    year = m.lock().unwrap();
+    // year = m.lock().unwrap();
 
     // 永久阻塞...
 }

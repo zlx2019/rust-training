@@ -2,23 +2,54 @@ use std::{fmt::Display, path::Path, str::FromStr};
 use clap::Parser;
 use anyhow::{Ok, Result};
 
-/// 终端命令参数解析模块.
-/// 将终端输入的启动参数，解析为 Options::SubCommand.
 
-
+/**
+ * 终端命令行参数体
+ */
 #[derive(Debug, Parser)]
-#[command(name = "rcli", version, author, about, long_about = None)]
-pub struct Options{
+#[command(version, author, about, long_about = None)]
+pub struct CommandLine{
+    /// 子命令
     #[command(subcommand)]
-    pub cmd: SubCommand,
+    pub sub_command: Option<SubCommand>,
 }
 
-/// 命令行参数枚举，可以包含多种命令参数
+/**
+ * 子命令枚举，每个子命令都代表一种处理分支.
+ */
 #[derive(Debug, Parser)]
 pub enum SubCommand {
-    // CSV 命令参数
-    #[command(name = "csv", about = "Csv Info.")]
+    /// Csv 文件处理工具
+    #[command(name = "csv", about = "Show CSV, or CSV to other formats.")]
     Csv(CsvOpts),
+    /// 随机密码生成工具
+    #[command(name = "rand", about = "Generate a random password")]
+    GenPassword(GenPasswordOpts),
+}
+
+
+/// 密码生成命令参数
+#[derive(Debug, Parser)]
+pub struct GenPasswordOpts{
+    /// 生成的密码长度
+    #[arg(short, long, default_value_t = 16)]
+    pub length: u8,
+
+    /// 允许出现大写字符
+    #[arg(long, default_value_t = true)]
+    pub uppercase: bool,
+
+    /// 允许出现小写字符
+    #[arg(long, default_value_t = true)]
+    pub lowercase: bool,
+
+    /// 允许出现数字
+    #[arg(long, default_value_t = true)]
+    pub number: bool,
+
+    /// 允许出现符号
+    #[arg(long, default_value_t = true)]
+    pub symbol: bool,
 }
 
 /// CSV 相关命令行参数.
@@ -27,23 +58,23 @@ pub enum SubCommand {
 /// default_value：指定默认值.
 #[derive(Debug, Parser)]
 pub struct CsvOpts{
-    // 输入的文件路径
+    /// 输入的文件
     #[arg(short, long, value_parser = file_verify)]
     pub input: String,
 
-    // 输出的文件路径
+    /// 输出的文件
     #[arg(short, long)]
     pub output: Option<String>,
 
-    // 输出的文件格式
+    /// 输出的文件格式
     #[arg(short, long, value_parser = parser_format, default_value = "json")]
     pub format: OutputFormat,
 
-    // CSV 分隔符，默认为 ','
+    /// CSV 分隔符，默认为 ','
     #[arg(short, long, default_value_t = ',')]
     pub delimiter: char,
 
-    // 是否显示 CSV 文件头信息.
+    /// 是否显示 CSV 文件头信息.
     #[arg(long, default_value_t = true)]
     pub header: bool,
 }
