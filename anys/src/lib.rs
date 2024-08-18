@@ -9,5 +9,4 @@ mod process;
 
 // 导出模块
 pub use opts::{CommandLine, SubCommand, CsvOpts};
-pub use player::Player;
-pub use process::process_csv;
+pub use process::{process_csv, gen_password};

@@ -1,3 +1,5 @@
+#![allow(dead_code)]  // 忽略本文件的一些提示
+
 use anyhow::{Ok, Result};
 use serde::{Deserialize, Serialize};
 

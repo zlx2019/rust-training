@@ -47,9 +47,10 @@ pub struct GenPasswordOpts{
     #[arg(long, default_value_t = true)]
     pub number: bool,
 
-    /// 允许出现符号
-    #[arg(long, default_value_t = true)]
-    pub symbol: bool,
+    // --no-symbol 表示为不允许(true)
+    /// 不允许出现特殊字符
+    #[arg(short, long, default_value_t = true, action = clap::ArgAction::SetFalse)]
+    pub no_symbol: bool,
 }
 
 /// CSV 相关命令行参数.

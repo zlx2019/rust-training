@@ -1,3 +1,7 @@
-# RCLI
+# anys
 
-rcli is a rust CLI tool.
+Small tool box
+
+- 文件格式转换
+- 密码生成
+- base64 编解码

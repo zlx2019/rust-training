@@ -20,3 +20,8 @@ serde = { version = "1.0.199", features = ["derive"] }
 serde_json = "1.0.116"
 serde_yaml = "0.9.34"
 structopt = "0.3.26"
+
+# 随机工具库
+rand = "0.8.5"
+# 终端控制符工具
+ansi_term = "0.12.1"

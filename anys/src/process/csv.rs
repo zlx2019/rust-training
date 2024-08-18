@@ -2,29 +2,25 @@ use std::fs::{self};
 use anyhow::Result;
 use csv::Reader;
 use serde_json::Value;
-use crate::{opts::OutputFormat, Player};
+use crate::opts::OutputFormat;
 
-
+/// 
 /// Csv 命令 相关处理
+/// 
 
 
- #[allow(dead_code)]
-/// 读取输入文件，解析为 Player 结构，写入到输出文件.
-pub fn process_csv_player(input: &str, output: &str)-> Result<()>{
-    // 读取输入文件，解析为对应的实体列表
-    let players = Reader::from_path(input)?
-        .deserialize()
-        .map(|item|item.unwrap())
-        .collect::<Vec<Player>>();
 
-    // 转换为JSON格式，写入到输出文件
-    let json = serde_json::to_string_pretty(&players)?;
-    fs::write(output, json)?;
-    Ok(())
-}
-
-
-/// 读取输入文件，解析为 泛型 K-V 结构，写入到输出文件.
+/// 解析`input`文件内容，转换为`format`格式，并写入到`ouput`文件中.
+///  - `input`:  输入文件
+///  - `output`: 输出文件
+///  - `format`: 输出的数据格式
+/// 
+/// #Examples
+/// 
+/// ```
+/// _ = process_csv("./a.csv", "a.json", "json");
+/// 
+/// ```
 pub fn process_csv(input: &str, output: &str, format: OutputFormat)-> Result<()>{
     // 读取输入文件，解析为对应的实体列表
     let mut reader = Reader::from_path(input)?;
@@ -39,8 +35,6 @@ pub fn process_csv(input: &str, output: &str, format: OutputFormat)-> Result<()>
             .collect::<Value>())
         .collect::<Vec<Value>>();
 
-    println!("{}", format);
-
     // 根据不同的输出类型，进行解析和转换
     let content = match format{
         OutputFormat::Json => serde_json::to_string_pretty(&values)?,
@@ -49,6 +43,24 @@ pub fn process_csv(input: &str, output: &str, format: OutputFormat)-> Result<()>
     fs::write(output, content)?;
     Ok(())
 }
+
+
+
+
+//  #[allow(dead_code)]
+// 读取输入文件，解析为 Player 结构，写入到输出文件.
+// pub fn process_csv_player(input: &str, output: &str)-> Result<()>{
+//     // 读取输入文件，解析为对应的实体列表
+//     let players = Reader::from_path(input)?
+//         .deserialize()
+//         .map(|item|item.unwrap())
+//         .collect::<Vec<Player>>();
+//     // 转换为JSON格式，写入到输出文件
+//     let json = serde_json::to_string_pretty(&players)?;
+//     fs::write(output, json)?;
+//     Ok(())
+// }
+
 
 
 // 读取 csv 格式的文件，解析后反序列化为指定的结构体.
