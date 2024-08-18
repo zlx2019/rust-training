@@ -29,8 +29,11 @@ fn main() -> Result<()>{
             // rand command handle
             let password = gen_password(opt.length, opt.uppercase,  
                 opt.lowercase, opt.number, opt.no_symbol);
-            println!("generated password: {}", Green.paint(password));
-        },
+            eprintln!("generated password: {}", Green.paint(password.unwrap()));
+        }
+        SubCommand::Base64(cmd) => {
+            println!("{:?}", cmd);
+        }
     }
     Ok(())
 }

@@ -23,5 +23,12 @@ structopt = "0.3.26"
 
 # 随机工具库
 rand = "0.8.5"
+# 密码强度测试
+zxcvbn = "3.1.0"
 # 终端控制符工具
 ansi_term = "0.12.1"
+
+
+# HTTP 请求解析 hyper
+# HTTP Web axum
+

@@ -2,12 +2,11 @@ use std::fs::{self};
 use anyhow::Result;
 use csv::Reader;
 use serde_json::Value;
-use crate::opts::OutputFormat;
+use crate::cli::OutputFormat;
 
 /// 
 /// Csv 命令 相关处理
 /// 
-
 
 
 /// 解析`input`文件内容，转换为`format`格式，并写入到`ouput`文件中.
