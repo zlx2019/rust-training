@@ -1,8 +1,7 @@
 # Rust 训练营工作空间.
 [workspace]
 members = [
-    "anys", "concurrent",
-    "week01",]
+    "anys", "concurrent", "files", "io", "getting-started",]
 
 
 resolver = "2"

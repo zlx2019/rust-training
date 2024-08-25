@@ -1,12 +1,11 @@
+//! Csv 命令 相关处理
+
 use std::fs::{self};
 use anyhow::Result;
 use csv::Reader;
 use serde_json::Value;
 use crate::cli::OutputFormat;
 
-/// 
-/// Csv 命令 相关处理
-/// 
 
 
 /// 解析`input`文件内容，转换为`format`格式，并写入到`ouput`文件中.
@@ -17,7 +16,8 @@ use crate::cli::OutputFormat;
 /// #Examples
 /// 
 /// ```
-/// _ = process_csv("./a.csv", "a.json", "json");
+/// use anys::{process_csv, OutputFormat};
+/// _ = process_csv("./a.csv", "a.json", OutputFormat::Json);
 /// 
 /// ```
 pub fn process_csv(input: &str, output: &str, format: OutputFormat)-> Result<()>{

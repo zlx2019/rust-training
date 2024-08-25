@@ -8,5 +8,5 @@ mod player;
 
 
 // 导出模块
-pub use cli::{CommandLine, SubCommand, CsvOpts};
-pub use process::{process_csv, gen_password};
+pub use cli::{CommandLine, SubCommand, CsvOpts, OutputFormat, Base64Format, Base64SubCommand};
+pub use process::{process_csv, gen_password, base64_encode, base64_decode};

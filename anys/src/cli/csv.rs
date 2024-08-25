@@ -2,7 +2,7 @@ use std::{fmt::Display, str::FromStr};
 use clap::Parser;
 use anyhow::{Ok, Result};
 
-use super::file_verify;
+use super::{verify_file_type};
 
 
 
@@ -12,7 +12,7 @@ use super::file_verify;
 #[derive(Debug, Parser)]
 pub struct CsvOpts{
     /// 输入的文件
-    #[arg(short, long, value_parser = file_verify)]
+    #[arg(short, long, value_parser = verify_file_type)]
     pub input: String,
 
     /// 输出的文件
