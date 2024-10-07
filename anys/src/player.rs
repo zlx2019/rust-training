@@ -10,7 +10,7 @@
 // #[allow(dead_code)]
 // #[derive(Debug,Deserialize,Serialize)]
 // #[serde(rename_all = "PascalCase")]
-// pub struct Player{
+// pub examples1 Player{
 //     pub name: String,           // 名称
 //     pub position: String,        // 队形位置
 //     #[serde(rename = "DOB")]

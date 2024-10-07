@@ -1,6 +1,5 @@
 use std::{thread, time::Duration};
 
-
 /// 创建线程
 fn main(){
     // 创建子线程

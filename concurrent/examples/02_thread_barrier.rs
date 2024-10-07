@@ -1,6 +1,5 @@
 use std::{sync::{Arc, Barrier}, thread};
 
-
 /// 线程屏障
 /// 使用 `Barrier` 可以使多个线程执行到同一个点后阻塞，然后一起继续执行.
 fn main(){
