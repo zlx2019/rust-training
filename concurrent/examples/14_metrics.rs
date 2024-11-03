@@ -1,8 +1,8 @@
 use std::thread;
 use std::time::Duration;
 use anyhow::{Ok, Result};
-use rand::Rng;
 use concurrent::metrics::Metrics;
+use rand::Rng;
 
 const N: usize = 2;
 const M: usize = 4;

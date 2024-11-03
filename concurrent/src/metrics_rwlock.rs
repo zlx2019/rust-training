@@ -1,21 +1,20 @@
 #![allow(dead_code)]
-
-/// 使用读写锁优化 metrics
-
 use std::collections::HashMap;
 use std::fmt;
 use std::sync::{Arc,RwLock};
 use anyhow::anyhow;
 
-/// 信息统计容器
+
+/// Metrics v2
+/// 使用 HashMap + 读写锁 实现
+
 #[derive(Debug, Clone)]
-pub struct Metrics {
-    /// 通过Mutex保证并发安全，通过Arc实现Mutex在多线程环境下的使用
+pub struct MetricsRw {
     data: Arc<RwLock<HashMap<String, i64>>>
 }
-impl Metrics{
+impl MetricsRw{
     pub fn new() -> Self{
-        Metrics{data: Arc::new(RwLock::new(HashMap::new()))}
+        MetricsRw{data: Arc::new(RwLock::new(HashMap::new()))}
     }
     /// 统计指标递增
     pub fn incr(&self, key: impl Into<String>) -> anyhow::Result<()>{
@@ -44,7 +43,7 @@ impl Metrics{
 }
 
 
-impl fmt::Display for Metrics {
+impl fmt::Display for MetricsRw {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let data = self.data.read().unwrap();
         for (key, value) in data.iter(){

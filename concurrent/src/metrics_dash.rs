@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-/// 
-/// 使用第三方库 dashmap 优化
+/// Metrics v3
+/// 使用 第三方库 DashMap实现, 该容器内部保证并发安全.
 /// 
 
 use std::fmt;
@@ -10,13 +10,13 @@ use dashmap::DashMap;
 
 /// 信息统计容器
 #[derive(Debug, Clone)]
-pub struct Metrics {
+pub struct MetricsDashMap {
     /// 通过Mutex保证并发安全，通过Arc实现Mutex在多线程环境下的使用
     data: Arc<DashMap<String, i64>>
 }
-impl Metrics{
+impl MetricsDashMap{
     pub fn new() -> Self{
-        Metrics{data: Arc::new(DashMap::new())}
+        MetricsDashMap{data: Arc::new(DashMap::new())}
     }
     /// 统计指标递增
     pub fn incr(&self, key: impl Into<String>) -> anyhow::Result<()>{
@@ -34,7 +34,7 @@ impl Metrics{
 }
 
 
-impl fmt::Display for Metrics {
+impl fmt::Display for MetricsDashMap {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for entry in self.data.iter(){
             writeln!(f, "{} : {}", entry.key(), entry.value())?;

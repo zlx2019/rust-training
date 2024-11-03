@@ -2,8 +2,12 @@
 
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
-
 use anyhow::anyhow;
+
+
+/// Metrics v1
+/// 使用 HashMap + Mutex 实现
+
 
 /// 信息统计容器
 #[derive(Debug, Clone)]

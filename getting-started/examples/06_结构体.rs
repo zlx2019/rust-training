@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 /// 结构体是多种类型组合而成的复合类型、如之前学到的i32、u64、bool、&str等类型组合在一起
 /// 其实就等同于面向对象语言中的Class
 
@@ -14,7 +16,7 @@ struct Point(i32, i32, u32);
 
 fn main() {
     // 创建结构体实例
-    let user = User{
+    let _ = User{
         username: "Zero".to_string(),
         password: "Root".to_string(),
         active: true,
@@ -23,5 +25,5 @@ fn main() {
 
 
 
-    let point = Point(0,0,0);
+    let _ = Point(0,0,0);
 }
