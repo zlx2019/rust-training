@@ -31,9 +31,9 @@ fn create_tokio_runtime() {
 /// #[tokio::main(flavor = "multi_thread", worker_threads = 10)]
 /// 单线程模式
 /// #[tokio::main(flavor = "current_thread")]
-#[tokio::main]
-async fn main() {
-
+// #[tokio::main]
+fn main() {
+    runtime_run_task();
 }
 
 /// 多个 runtime 共存
@@ -52,4 +52,10 @@ fn runtime_shared(){
     t2.join().unwrap();
 
     // 该函数中，启动了两个 runtime, 分别有2个子线程 + (1 + 10)个 runtime 工作线程. 
+    // runtime 实现了 Send 和 Sync 特征，因此可以使用 Arc 在多线程环境下使用.
+}
+
+
+fn runtime_run_task(){
+
 }
