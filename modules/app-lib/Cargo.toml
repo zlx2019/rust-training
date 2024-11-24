@@ -1,0 +1,9 @@
+[package]
+name = "app-lib"
+version = "0.1.0"
+edition = "2021"
+
+# 这是一个 Library Crate
+# 用于为 `app` 提供依赖.
+
+[dependencies]

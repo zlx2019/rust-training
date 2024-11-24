@@ -1,7 +1,7 @@
 # Rust 训练营工作空间.
 [workspace]
 members = [
-    "anys", "concurrent", "files", "io", "getting-started", "oop", "unsafes", "asyncs", "web-server", "rust-imap", "asyncs-tokio"]
+    "anys", "concurrent", "files", "io", "getting-started", "oop", "unsafes", "asyncs", "web-server", "rust-imap", "asyncs-tokio", "modules/app", "modules/app-lib"]
 
 
 resolver = "2"

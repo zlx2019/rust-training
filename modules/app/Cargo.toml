@@ -1,0 +1,11 @@
+[package]
+name = "app"
+version = "0.1.0"
+edition = "2021"
+
+# 这是一个 Package 项目并且也是一个 Binary Crate.
+
+[dependencies]
+
+# 导入本地 crate
+app-lib = { path = "../app-lib" }
