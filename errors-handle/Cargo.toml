@@ -1,0 +1,13 @@
+[package]
+name = "error-handle"
+version = "0.1.0"
+edition = "2021"
+
+# Rust 错误处理
+
+[dependencies]
+anyhow = "1.0.94"
+thiserror = "2.0.8"
+
+serde = { version = "1.0.216", features = ["derive"] }
+serde_json = "1.0.133"
