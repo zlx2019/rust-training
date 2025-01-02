@@ -14,8 +14,11 @@ members = [
     "asyncs-tokio",
     "modules/app",
     "modules/app-lib",
+    "macros",
+    "errors-handle",
+    "errors-handle-example", "loggers",
     "traits",
-    "asyncs-tokio-network",
+    "asyncs-tokio-network"
 ]
 
 
