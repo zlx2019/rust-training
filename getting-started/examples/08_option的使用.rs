@@ -138,6 +138,10 @@ fn unwrap_or_example(){
     assert_eq!(None.unwrap_or("bike"), "bike")
 }
 
+fn unwrap_or_else_example(){
+    
+}
+
 fn main(){
     is_some_example();
     is_none_example();

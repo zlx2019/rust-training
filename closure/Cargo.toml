@@ -1,8 +1,6 @@
 [package]
-name = "macros"
+name = "closure"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-anyhow = "1.0.98"
-futures = "0.3.31"

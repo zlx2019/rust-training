@@ -19,7 +19,7 @@ members = [
     "errors-handle-example", "loggers",
     "traits",
     "asyncs-tokio-network"
-]
+, "closure"]
 
 
 resolver = "2"

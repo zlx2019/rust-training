@@ -1,3 +1,4 @@
 fn main() {
-    println!("Hello, world!");
+    println!("Hello, {}, age is {}", "Zero", 18);
 }
+
