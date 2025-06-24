@@ -3,6 +3,21 @@ name = "macros"
 version = "0.1.0"
 edition = "2024"
 
+[lib]
+# 允许过程宏
+proc-macro = true
+
+# 编写过程宏所需要的依赖
 [dependencies]
+proc-macro2 = "1.0.95"
+# 用于生成 tokenstream
+quote = "1.0"
+# 用于解析 tokenstream
+syn = { version = "2.0", features = ["extra-traits"] }
+
+
+
+# example dependencies
+[dev-dependencies]
 anyhow = "1.0.98"
 futures = "0.3.31"

@@ -6,6 +6,38 @@
 
 宏（Macro）是一种能够通过**代码生成代码**的技术。并且宏是由编译器在**编译阶段**完成的操作，本质上来说宏也是**元编程**的一种体现形式。
 
+# 前置补充
+
+> 在真正开始学习 Rust宏 之前，先来铺垫一些相关知识与概念。
+
+## Rust 编译
+
+### **标识化（Tokenization）**
+
+Rust程序编译过程的第一个阶段是[标记解析](https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization)。在此阶段中，源代码将被转换成一系列的标记（token）。
+
+> token：无法被分割的词法单元；在编程语言世界中等价于“单词”。
+
+Rust包含多种标记，比如：
+
+- 标识符 (identifiers): `foo`, `Bambous`, `self`, `we_can_dance`, `LaCaravane`, …
+- 字面值 (literals): `42`, `72u32`, `0_______0`, `1.0e-40`, `"ferris was here"`, …
+- 关键字 (keywords): `_`, `fn`, `self`, `match`, `yield`, `macro`, …
+- 符号 (symbols): `[`, `:`, `::`, `?`, `~`, `@`[1](https://zjp-cn.github.io/tlborm/syntax-extensions/source-analysis.html#wither-at), …
+
+需要注意的是：
+
+1. `self`既是一个标识符又是一个关键词。
+2. 关键词里列有一些可疑的家伙，比如 `yield` 和 `macro`。 它们在当前的Rust语言中并没有任何含义，但编译器的确会把它们视作关键词进行解析。 这些词语被保留作语言未来扩充时使用。
+
+> 某些语言的宏系统就工作于此阶段，比如C/C++的宏就是在本阶段进行处理，但是Rust并非如此。
+
+### 语法解析（Parsing）
+
+
+
+
+
 # Rust 宏
 
 在Rust中，宏分为两大类：**声明式宏**、**过程宏**。而过程宏又分为三种：**派生宏**、**属性宏** 和 **函数宏**。
@@ -16,9 +48,17 @@
   - **属性宏**
   - **函数宏**
 
-## 宏的特性
+## 与函数的区别
 
-- **宏展开**
+- 编译期处理：宏在编译时展开，没有运行时开销。
+- 可变参数处理：宏可以接受任意数量的参数，最终都会在编译时展开。
+- 代码生成：减少大量的重复代码，并且扩展性强。
+
+<hr>
+
+
+
+## 宏的展开
 
 ```rust
 fn main() {
@@ -41,12 +81,12 @@ fn main() {
         ::std::io::_print(format_args!("Hello, {0}, age is {1}\n", "Zero", 18));
     };
 }
-
 ```
 
 <hr>
 
-## 声明式宏
+
+# 声明式宏
 
 ```c
 #define MUL(a, b) a * b
@@ -149,7 +189,7 @@ macor_rules! macor_name {
 }
 ```
 
-### 元变量
+## 元变量
 
 matcher 还可以包含捕获 (captures)。即基于某种通用语法类别来匹配输入，并将结果捕获到元变量 (metavariable) 中，然后将替换元变量到输出。
 
@@ -160,7 +200,13 @@ matcher 还可以包含捕获 (captures)。即基于某种通用语法类别来�
 ($name: ident) => expression;
 ```
 
-捕获方式又被称为**片段分类符(fragment-specifier)**，必须是以下的一种：
+
+
+<hr>
+
+## 片段分类符
+
+捕获方式又被称为**片段分类符(fragment-specifier)**，是用来表示调用宏时传入的参数类型。必须是以下的一种：
 
 - [`block`](https://zjp-cn.github.io/tlborm/decl-macros/minutiae/fragment-specifiers.html#block)：一个块（比如一块语句或者由大括号包围的一个表达式）
 - [`expr`](https://zjp-cn.github.io/tlborm/decl-macros/minutiae/fragment-specifiers.html#expr)：一个表达式 (expression)
@@ -176,7 +222,18 @@ matcher 还可以包含捕获 (captures)。即基于某种通用语法类别来�
 - [`ty`](https://zjp-cn.github.io/tlborm/decl-macros/minutiae/fragment-specifiers.html#ty)：一个类型
 - [`vis`](https://zjp-cn.github.io/tlborm/decl-macros/minutiae/fragment-specifiers.html#vis)：一个可能为空的可见性修饰符（比如 `pub`、`pub(in crate)`）
 
-### 重复捕获
+### block
+
+`block`分类符表示一段代码块。由`{`开始，接着是一些语句，最后是可选的表达式，然后以`}`结束。
+
+```rust
+```
+
+
+
+
+
+## 重复捕获
 
 这些操作符允许宏匹配重复出现的语法结构：
 
@@ -186,7 +243,7 @@ matcher 还可以包含捕获 (captures)。即基于某种通用语法类别来�
 
 <hr>
 
-### 练习案例
+## 练习案例
 
 1. 编写一个我们自己的`vec!`宏。
 
@@ -322,12 +379,60 @@ fn main() {
 
 
 
-## 过程宏
+# 过程宏
+
+
+
+## 派生宏
+
+**派生宏(Derive macros)** 是 Rust 过程宏的其中一种，它可以实现自动为类型**派生**出特定的特征（trait）代码。比如我们平常经常用到的 `#[derive(...)]` 就是派生宏。
+
+如下示例：
+
+```rust
+#[derive(Debug, Default)]
+struct User;
+```
+
+该示例通过`#[derive]`宏为`User`结构体自动实现了`Debug`和`Default`两个trait，该示例展开后的源码为如下：
+
+```rust
+struct User;
+#[automatically_derived]
+impl ::core::fmt::Debug for User {
+    #[inline]
+    fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+        ::core::fmt::Formatter::write_str(f, "User")
+    }
+}
+#[automatically_derived]
+impl ::core::default::Default for User {
+    #[inline]
+    fn default() -> User {
+        User {}
+    }
+}
+```
+
+所以说，`#[derive]`派生宏的作用主要就是为一些类型自动实现一些特征。
+
+
+
+<hr>
+
+## 属性宏
 
 
 
 
 
-### 派生宏
 
-**派生宏(Derive macros)** 
+
+<hr>
+
+## 函数宏
+
+
+
+
+

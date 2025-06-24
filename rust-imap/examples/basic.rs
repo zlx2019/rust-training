@@ -9,6 +9,7 @@ fn main() {
 fn fetch_inbox_top() -> imap::error::Result<Option<String>> {
     let client = imap::ClientBuilder::new("imap.qq.com", 993).connect()?;
 
+    // 默认使用 PLAIN 认证方式
     let mut session = client
         .login("1143967454@qq.com", "zgdqonjnfpergjcd")
         .map_err(|e| e.0)?;
