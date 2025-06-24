@@ -18,8 +18,10 @@ members = [
     "errors-handle",
     "errors-handle-example", "loggers",
     "traits",
-    "asyncs-tokio-network"
-, "closure", "smart-pointers"]
+    "asyncs-tokio-network",
+    "closure",
+    "rust-ffi",
+    "smart-pointers"]
 
 
 resolver = "2"

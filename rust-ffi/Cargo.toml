@@ -1,0 +1,14 @@
+[package]
+name = "rust-ffi"
+version = "0.1.0"
+edition = "2024"
+description = "Rust-FFI 调用 C语言"
+
+[dependencies]
+libc = "0.2"
+
+
+# 构建所需依赖
+[build-dependencies]
+# 用于构建C/C++
+cc = "1.0"
