@@ -3,7 +3,8 @@ package main
 import "C"
 import "fmt"
 
-/// 构建动态库命令：go build -buildmode=c-shared -o ../lib/libgolib.dylib hello.go
+/// 库名：go_dyn
+/// 构建动态库命令：go build -buildmode=c-shared -o ../libgo_dyn.dylib hello.go
 
 //export say_hello
 func say_hello(rwaStr *C.char) {

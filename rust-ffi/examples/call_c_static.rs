@@ -1,8 +1,11 @@
-
 use std::{ffi::{CStr, CString}, os::raw::c_char};
 
+// Rust 调用 C语言静态库
+// 
+// 
 
-// 声明外部C函数
+
+// 声明外部的本地函数
 unsafe extern "C" {
     /// 字符串转大写
     fn str_to_upper(arg: *const c_char) -> *mut c_char;
@@ -10,8 +13,8 @@ unsafe extern "C" {
     fn free_c_str(arg: *mut c_char);
 }
 
-
-fn safe_str_to_upper(input: &str) -> Result<String, Box<dyn std::error::Error>> {
+// 包装本地函数
+fn wrapper_str_to_upper(input: &str) -> Result<String, Box<dyn std::error::Error>> {
     // 将 Rust 字符串转换为 C 字符串
     let rwa_str = CString::new(input)?;
 
@@ -35,30 +38,15 @@ fn safe_str_to_upper(input: &str) -> Result<String, Box<dyn std::error::Error>> 
     Ok(ret_val)
 }
 
-
-// 声明外部Go动态函数，指定库名
-#[link(name = "go_dyn", kind = "dylib")]
-unsafe extern "C" {
-    fn say_hello(input: *const c_char);
-}
-
-// 调用Go 动态函数
-fn safe_say_hello(input: &str){
-    let rwa_str = CString::new(input).unwrap();
-    unsafe {
-        say_hello(rwa_str.as_ptr());
-    }
-}
-
-fn main() {
-    println!("Rust FFI with C lib");
+fn main(){
+        println!("Rust call C lib");
     let lines = vec![
         "java",
         "rust",
         "golang"
     ];
     for ele in lines {
-        match safe_str_to_upper(ele) {
+        match wrapper_str_to_upper(ele) {
             Ok(ret) => {
                 println!("input: {} ==> output: {}", ele, ret);
             },
@@ -67,6 +55,4 @@ fn main() {
             }
         }
     }
-
-    safe_say_hello("Hello rust + go!");
 }
