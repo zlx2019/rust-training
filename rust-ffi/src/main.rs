@@ -1,11 +1,15 @@
-/// 声明外部 C 动态库函数
+
 use std::{ffi::{CStr, CString}, os::raw::c_char};
+
+
+// 声明外部C函数
 unsafe extern "C" {
     /// 字符串转大写
     fn str_to_upper(arg: *const c_char) -> *mut c_char;
     /// 释放字符串内存(C)
     fn free_c_str(arg: *mut c_char);
 }
+
 
 fn safe_str_to_upper(input: &str) -> Result<String, Box<dyn std::error::Error>> {
     // 将 Rust 字符串转换为 C 字符串
@@ -29,7 +33,21 @@ fn safe_str_to_upper(input: &str) -> Result<String, Box<dyn std::error::Error>> 
         rs_string
     };
     Ok(ret_val)
-    
+}
+
+
+// 声明外部Go动态函数，指定库名
+#[link(name = "golib", kind = "dylib")]
+unsafe extern "C" {
+    fn say_hello(input: *const c_char);
+}
+
+// 调用Go 动态函数
+fn safe_say_hello(input: &str){
+    let rwa_str = CString::new(input).unwrap();
+    unsafe {
+        say_hello(rwa_str.as_ptr());
+    }
 }
 
 fn main() {
@@ -49,4 +67,6 @@ fn main() {
             }
         }
     }
+
+    safe_say_hello("Hello rust + go!");
 }
