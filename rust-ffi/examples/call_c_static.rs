@@ -1,7 +1,10 @@
+#![allow(unused_variables)]
+#![allow(dead_code)]
+
 use std::{ffi::{CStr, CString}, os::raw::c_char};
 
-// Rust 调用 C语言静态库
-// 
+//
+// 通过 Rust ffi 调用 C 语言静态函数
 // 
 
 
